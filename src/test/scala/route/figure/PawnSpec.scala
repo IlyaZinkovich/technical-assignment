@@ -38,5 +38,10 @@ class PawnSpec extends WordSpecLike {
 			assert(Pawn.canMoveDownRight((0, 0), (2, 2)))
 		}
 
+		"move" in {
+			List(((3, 0), (0, 0)), ((0, 0), (3, 0)), ((0, 3), (0, 0)), ((0, 0), (0, 3)),
+				((2, 2), (0, 0)), ((2, 0), (0, 2)), ((0, 2), (2, 0)), ((0, 0), (2, 2)))
+				.foreach(pairOfVertices => assert(Pawn.canMove(pairOfVertices._1, pairOfVertices._2)))
+		}
 	}
 }

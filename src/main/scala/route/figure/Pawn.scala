@@ -34,7 +34,7 @@ object Pawn extends Figure {
 		(from._1 - to._1 == -2) && (from._2 - to._2 == -2)
 	}
 
-	override def moves(): List[((Int, Int), (Int, Int)) => Boolean] = {
+	def canMove(fromVertex: (Int, Int), toVertex: (Int, Int)): Boolean = {
 		List(canMoveUp _,
 		     canMoveDown _,
 		     canMoveLeft _,
@@ -42,6 +42,6 @@ object Pawn extends Figure {
 		     canMoveUpLeft _,
 		     canMoveUpRight _,
 		     canMoveDownLeft _,
-		     canMoveDownRight _)
+		     canMoveDownRight _).map(move => move.apply(fromVertex, toVertex)).reduce(_ | _)
 	}
 }

@@ -10,11 +10,7 @@ class RoutesGraph(width: Int, height: Int, figure: Figure) {
 	}
 
 	private def adjacentVertices(vertices: List[(Int, Int)], fromVertex: (Int, Int)) = {
-		vertices.map(toVertex => (toVertex, canMove(fromVertex, toVertex))).filter(_._2).map(_._1).toSet
-	}
-
-	private def canMove(fromVertex: (Int, Int), toVertex: (Int, Int)) = {
-		figure.moves().map(move => move.apply(fromVertex, toVertex)).reduce(_ | _)
+		vertices.map(toVertex => (toVertex, figure.canMove(fromVertex, toVertex))).filter(_._2).map(_._1).toSet
 	}
 
 	def route(initialPosition: (Int, Int)): Seq[(Int, Int)] = {

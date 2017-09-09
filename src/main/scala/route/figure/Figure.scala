@@ -2,5 +2,5 @@ package route.figure
 
 abstract class Figure {
 
-	def moves(): List[((Int, Int), (Int, Int)) => Boolean]
+	def canMove(fromVertex: (Int, Int), toVertex: (Int, Int)): Boolean
 }
