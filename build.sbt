@@ -10,4 +10,4 @@ libraryDependencies ++= Seq(
   "com.typesafe.scala-logging" % "scala-logging_2.12" % "3.7.2"
 )
 
-mainClass in assembly := Some("route.simulation.Simulation")
+mainClass in assembly := Some("route.simulation.SimulationApp")

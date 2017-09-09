@@ -11,7 +11,7 @@ import route.figure.{Figure, Pawn}
   * validates them and runs simulation of route search algorithm
   * printing route and chequerboard on each route step.
   */
-object Simulation {
+object SimulationApp {
 
   private val logger = Logger(LoggerFactory.getLogger(this.getClass))
 
