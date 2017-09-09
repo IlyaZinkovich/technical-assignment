@@ -8,8 +8,8 @@ import route.figure.{Figure, Pawn}
 /**
   * Application entry point that accepts program arguments in
   * "width height initialVerticalPosition initialHorizontalPosition" format,
-  * validates them and runs simulation of route finding algorithm
-  * printing route and chequerboard on each route step
+  * validates them and runs simulation of route search algorithm
+  * printing route and chequerboard on each route step.
   */
 object Simulation {
 

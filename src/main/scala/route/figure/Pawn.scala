@@ -1,5 +1,9 @@
 package route.figure
 
+/**
+  * A chequerboard figure that can vertically and horizontally through two cells
+  * and diagonally through one cell.
+  */
 object Pawn extends Figure {
 
   def canMoveUp(from: (Int, Int), to: (Int, Int)): Boolean = {

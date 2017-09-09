@@ -2,6 +2,15 @@ package route.algorithm
 
 import route.figure.Figure
 
+/**
+  * Graph based algorithm using deep first search to find routes on a chequerboard.
+  *
+  * @see [[https://en.wikipedia.org/wiki/Depth-first_search]]
+  *
+  * @param width  chequerboard width
+  * @param height chequerboard height
+  * @param figure figure for which the algorithm should find routes
+  */
 class RoutesGraph(width: Int, height: Int, figure: Figure) extends RouteFindingAlgorithm {
 
   private val adjacencyMap: Map[(Int, Int), Set[(Int, Int)]] = {
