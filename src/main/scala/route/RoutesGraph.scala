@@ -14,6 +14,18 @@ class RoutesGraph(width: Int, height: Int, figure: Figure) {
 	}
 
 	def route(initialPosition: (Int, Int)): Seq[(Int, Int)] = {
-		List()
+		visited = initialPosition :: visited
+		dfs(initialPosition).reverse
+	}
+
+	private var visited = List[(Int, Int)]()
+
+	def dfs(position: (Int, Int)): List[(Int, Int)] = {
+		adjacencyMap(position).filter(!visited.contains(_)).foreach(nonVisitedChildren => {
+			visited = nonVisitedChildren :: visited
+			dfs(nonVisitedChildren)
+			visited = position :: visited
+		})
+		visited
 	}
 }
