@@ -5,6 +5,12 @@ import org.slf4j.LoggerFactory
 import route.algorithm.RoutesGraph
 import route.figure.Pawn
 
+/**
+  * Application entry point that accepts program arguments in
+  * "width height initialVerticalPosition initialHorizontalPosition" format,
+  * validates them and runs simulation of route finding algorithm
+  * printing route and chequerboard on each route step
+  */
 object Simulation {
 
   private val logger = Logger(LoggerFactory.getLogger(this.getClass))
@@ -24,14 +30,15 @@ object Simulation {
     logger.info(s"Route: ${route.mkString(", ")}")
 
     val matrix: Array[Array[Boolean]] = Array.ofDim[Boolean](width, height)
-    route.foreach(cell => {
+    for ((cell, index) <- route.view.zipWithIndex) {
       matrix(cell._1)(cell._2) = true
-      printMatrix(matrix)
-    })
+      printMatrix(matrix, index)
+    }
   }
 
-  private def printMatrix(matrix: Array[Array[Boolean]]) = {
-    logger.info("Matrix: \n" + matrix.map(_.map(b => if (b) "x" else "o").mkString("|")).mkString("\n"))
+  private def printMatrix(matrix: Array[Array[Boolean]], step: Int) = {
+    val matrixOutput = matrix.map(_.map(b => if (b) "x" else "o").mkString("|")).mkString("\n")
+    logger.info(s"Chequerboard on ${step + 1} step: \n$matrixOutput")
   }
 
   private def validateArgumentsLength(args: Array[String]) = {
