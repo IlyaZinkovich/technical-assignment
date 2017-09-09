@@ -11,3 +11,5 @@ libraryDependencies ++= Seq(
 )
 
 mainClass in assembly := Some("route.simulation.SimulationApp")
+
+coverageEnabled := true
