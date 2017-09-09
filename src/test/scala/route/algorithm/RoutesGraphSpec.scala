@@ -16,7 +16,6 @@ class RoutesGraphSpec extends WordSpecLike {
 
       for (x <- List.range(0, height); y <- List.range(0, width)) {
         val initialPosition = (x, y)
-        println(s"verifying solution for initial position: $initialPosition")
 
         val route = routesGraph.route(initialPosition)
 

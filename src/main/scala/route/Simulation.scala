@@ -1,9 +1,13 @@
 package route
 
+import com.typesafe.scalalogging.Logger
+import org.slf4j.LoggerFactory
 import route.algorithm.RoutesGraph
 import route.figure.Pawn
 
 object Simulation {
+
+  private val logger = Logger(LoggerFactory.getLogger(this.getClass))
 
   def main(args: Array[String]): Unit = {
     validateArgumentsLength(args)
@@ -17,8 +21,7 @@ object Simulation {
 
     val route = new RoutesGraph(width, height, figure).route(initialPosition)
 
-    println("Route: ")
-    println(route.mkString(", "))
+    logger.info(s"Route: ${route.mkString(", ")}")
 
     val matrix: Array[Array[Boolean]] = Array.ofDim[Boolean](width, height)
     route.foreach(cell => {
@@ -28,8 +31,7 @@ object Simulation {
   }
 
   private def printMatrix(matrix: Array[Array[Boolean]]) = {
-    println(matrix.map(_.map(b => if (b) "x" else "o").mkString("|")).mkString("\n"))
-    println
+    logger.info("Matrix: \n" + matrix.map(_.map(b => if (b) "x" else "o").mkString("|")).mkString("\n"))
   }
 
   private def validInitialPosition(initialVerticalPositionArg: String,
