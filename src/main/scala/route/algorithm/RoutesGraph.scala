@@ -3,7 +3,7 @@ package route.algorithm
 import route.figure.Figure
 
 /**
-  * Graph based algorithm using deep first search to find routes on a chequerboard.
+  * Graph based algorithm using deep first search to find figure routes on a chequerboard.
   *
   * @see [[https://en.wikipedia.org/wiki/Depth-first_search]]
   *
