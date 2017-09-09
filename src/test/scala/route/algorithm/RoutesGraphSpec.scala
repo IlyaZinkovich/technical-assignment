@@ -27,7 +27,8 @@ class RoutesGraphSpec extends WordSpecLike {
           .foreach(pair => {
             val from = pair._1
             val to = pair._2
-            assert(figure.canMove(from, to), s"figure cannot move from $from to $to, initial position: $initialPosition")
+            assert(figure.canMove(from, to),
+              s"figure cannot move from $from to $to, initial position is $initialPosition")
           })
       }
     }
