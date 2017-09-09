@@ -17,7 +17,7 @@ class RoutesGraphSpec extends WordSpecLike {
       for (x <- List.range(0, height); y <- List.range(0, width)) {
         val initialPosition = (x, y)
 
-        val route = routesGraph.route(initialPosition)
+        val route = routesGraph.findRoute(initialPosition)
 
         assert(route.toSet.size == width * height,
           s"route through all graph is not found for initial position $initialPosition")

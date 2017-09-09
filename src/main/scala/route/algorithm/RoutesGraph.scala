@@ -2,7 +2,7 @@ package route.algorithm
 
 import route.figure.Figure
 
-class RoutesGraph(width: Int, height: Int, figure: Figure) {
+class RoutesGraph(width: Int, height: Int, figure: Figure) extends RouteFindingAlgorithm {
 
   private val adjacencyMap: Map[(Int, Int), Set[(Int, Int)]] = {
     val vertices = for (x <- List.range(0, height); y <- List.range(0, width)) yield (x, y)
@@ -13,7 +13,7 @@ class RoutesGraph(width: Int, height: Int, figure: Figure) {
     vertices.map(toVertex => (toVertex, figure.canMove(fromVertex, toVertex))).filter(_._2).map(_._1).toSet
   }
 
-  def route(initialPosition: (Int, Int)): Seq[(Int, Int)] = {
+  override def findRoute(initialPosition: (Int, Int)): Seq[(Int, Int)] = {
     var path = List(initialPosition)
 
     def deepFirstSearch(position: (Int, Int)): List[(Int, Int)] = {

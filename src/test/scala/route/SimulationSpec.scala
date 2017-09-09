@@ -1,6 +1,7 @@
 package route
 
 import org.scalatest.WordSpecLike
+import route.simulation.Simulation
 
 class SimulationSpec extends WordSpecLike {
 

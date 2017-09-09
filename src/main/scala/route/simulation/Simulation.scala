@@ -1,9 +1,9 @@
-package route
+package route.simulation
 
 import com.typesafe.scalalogging.Logger
 import org.slf4j.LoggerFactory
-import route.algorithm.RoutesGraph
-import route.figure.Pawn
+import route.algorithm.{RouteFindingAlgorithm, RoutesGraph}
+import route.figure.{Figure, Pawn}
 
 /**
   * Application entry point that accepts program arguments in
@@ -23,9 +23,10 @@ object Simulation {
   }
 
   private def simulate(width: Int, height: Int, initialPosition: (Int, Int)) = {
-    val figure = Pawn
+    val figure: Figure = Pawn
+    val algorithm: RouteFindingAlgorithm = new RoutesGraph(width, height, figure)
 
-    val route = new RoutesGraph(width, height, figure).route(initialPosition)
+    val route = algorithm.findRoute(initialPosition)
 
     logger.info(s"Route: ${route.mkString(", ")}")
 
@@ -64,14 +65,14 @@ object Simulation {
   }
 
   private def validInitialPosition(initialVerticalPositionArg: String,
-  initialHorizontalPositionArg: String,
-  width: Int, height: Int) = {
+                                   initialHorizontalPositionArg: String,
+                                   width: Int, height: Int) = {
     val initialVerticalPosition = initialVerticalPositionArg.toInt
     assert((0 <= initialVerticalPosition) && (initialVerticalPosition < height),
-    s"Initial vertical position should fit (0, $height) range")
+      s"Initial vertical position should fit (0, $height) range")
     val initialHorizontalPosition = initialHorizontalPositionArg.toInt
     assert((0 <= initialHorizontalPosition) && (initialHorizontalPosition < width),
-    s"Initial horizontal position should fit (0, $width) range")
+      s"Initial horizontal position should fit (0, $width) range")
     (initialVerticalPosition, initialHorizontalPosition)
   }
 }
