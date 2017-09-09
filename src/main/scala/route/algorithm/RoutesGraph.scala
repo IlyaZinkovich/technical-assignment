@@ -6,29 +6,26 @@ class RoutesGraph(width: Int, height: Int, figure: Figure) {
 
   private val adjacencyMap: Map[(Int, Int), Set[(Int, Int)]] = {
     val vertices = for (x <- List.range(0, height); y <- List.range(0, width)) yield (x, y)
-    vertices.map(fromVertex => fromVertex -> adjacentVertices(vertices, fromVertex)).toMap
+    vertices.map(fromVertex => fromVertex -> adjacentVertices(fromVertex, vertices)).toMap
   }
 
-  private def adjacentVertices(vertices: List[(Int, Int)], fromVertex: (Int, Int)) = {
+  private def adjacentVertices(fromVertex: (Int, Int), vertices: List[(Int, Int)]): Set[(Int, Int)] = {
     vertices.map(toVertex => (toVertex, figure.canMove(fromVertex, toVertex))).filter(_._2).map(_._1).toSet
   }
 
   def route(initialPosition: (Int, Int)): Seq[(Int, Int)] = {
-    visited = initialPosition :: visited
-    val route = deepFirstSearch(initialPosition).reverse
-    visited = List[(Int, Int)]()
-    route
-  }
+    var path = List(initialPosition)
 
-  private var visited = List[(Int, Int)]()
+    def deepFirstSearch(position: (Int, Int)): List[(Int, Int)] = {
+      adjacencyMap(position).filter(!path.contains(_))
+        .foreach(nonVisitedChild => {
+          path = nonVisitedChild :: path
+          deepFirstSearch(nonVisitedChild)
+          path = position :: path
+        })
+      path
+    }
 
-  private def deepFirstSearch(position: (Int, Int)): List[(Int, Int)] = {
-    adjacencyMap(position).filter(!visited.contains(_))
-      .foreach(nonVisitedChild => {
-        visited = nonVisitedChild :: visited
-        deepFirstSearch(nonVisitedChild)
-        visited = position :: visited
-      })
-    visited
+    deepFirstSearch(initialPosition).reverse
   }
 }
