@@ -34,16 +34,14 @@ object Simulation {
     logger.info("Matrix: \n" + matrix.map(_.map(b => if (b) "x" else "o").mkString("|")).mkString("\n"))
   }
 
-  private def validInitialPosition(initialVerticalPositionArg: String,
-                                   initialHorizontalPositionArg: String,
-                                   width: Int, height: Int) = {
-    val initialVerticalPosition = initialVerticalPositionArg.toInt
-    assert((0 <= initialVerticalPosition) && (initialVerticalPosition < height),
-      s"Initial vertical position should fit (0, $height) range")
-    val initialHorizontalPosition = initialHorizontalPositionArg.toInt
-    assert((0 <= initialHorizontalPosition) && (initialHorizontalPosition < width),
-      s"Initial horizontal position should fit (0, $width) range")
-    (initialVerticalPosition, initialHorizontalPosition)
+  private def validateArgumentsLength(args: Array[String]) = {
+    assert(args.length == 4,
+      s"""Not enough arguments: ${args.length}
+         |Please provide arguments in the following format:
+         |width height initialHorizontalPosition initialVerticalPosition
+         |each argument should be an integer greater than 0
+         |and initial position should fit provided width and height
+         """.stripMargin)
   }
 
   private def validWidth(arg: String) = {
@@ -58,13 +56,15 @@ object Simulation {
     height
   }
 
-  private def validateArgumentsLength(args: Array[String]) = {
-    assert(args.length == 4,
-      s"""Not enough arguments: ${args.length}
-           |Please provide arguments in the following format:
-           |width height initialHorizontalPosition initialVerticalPosition
-           |each argument should be an integer greater than 0
-           |and initial position should fit provided width and height
-         """.stripMargin)
+  private def validInitialPosition(initialVerticalPositionArg: String,
+  initialHorizontalPositionArg: String,
+  width: Int, height: Int) = {
+    val initialVerticalPosition = initialVerticalPositionArg.toInt
+    assert((0 <= initialVerticalPosition) && (initialVerticalPosition < height),
+    s"Initial vertical position should fit (0, $height) range")
+    val initialHorizontalPosition = initialHorizontalPositionArg.toInt
+    assert((0 <= initialHorizontalPosition) && (initialHorizontalPosition < width),
+    s"Initial horizontal position should fit (0, $width) range")
+    (initialVerticalPosition, initialHorizontalPosition)
   }
 }
