@@ -57,14 +57,12 @@ object Simulation {
   }
 
   private def validateArgumentsLength(args: Array[String]) = {
-    if (args.length < 4) {
-      throw new RuntimeException(
-        s"""Not enough arguments: ${args.length}
+    assert(args.length == 4,
+      s"""Not enough arguments: ${args.length}
            |Please provide arguments in the following format:
            |width height initialHorizontalPosition initialVerticalPosition
            |each argument should be an integer greater than 0
            |and initial position should fit provided width and height
          """.stripMargin)
-    }
   }
 }
