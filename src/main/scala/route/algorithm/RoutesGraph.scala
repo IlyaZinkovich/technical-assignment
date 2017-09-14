@@ -23,18 +23,13 @@ class RoutesGraph(width: Int, height: Int, figure: Figure) extends RouteFindingA
   }
 
   override def findRoute(initialPosition: (Int, Int)): Seq[(Int, Int)] = {
-    var path = List(initialPosition)
 
-    def deepFirstSearch(position: (Int, Int)): List[(Int, Int)] = {
+    def deepFirstSearch(position: (Int, Int), path: List[(Int, Int)]): List[(Int, Int)] = {
       adjacencyMap(position).filter(!path.contains(_))
-        .foreach(nonVisitedChild => {
-          path = nonVisitedChild :: path
-          deepFirstSearch(nonVisitedChild)
-          path = position :: path
-        })
-      path
+        .map(nonVisitedChild => deepFirstSearch(nonVisitedChild, nonVisitedChild :: path))
+        .find(_.size == width * height).getOrElse(path)
     }
 
-    deepFirstSearch(initialPosition).reverse
+    deepFirstSearch(initialPosition, List(initialPosition)).reverse
   }
 }
