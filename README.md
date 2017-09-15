@@ -1,13 +1,31 @@
 # Solution to Platform - Assignment 2 by Ilya Zinkovich
 
-Deep first search algorithm implementation for search of pawn route through all chequerboard cells. 
+Graph-based search algorithm implementation for search of pawn route through all chequerboard cells. 
 
 Notes:  
 Graph model is chosen as the most natural way to represent any routes.  
-Chequerboard cells are mapped to graph vertices and legitimate move from one cell to another 
+Chequerboard is split into four 5x5 partials which cells are mapped 
+to graph vertices and legitimate move from one cell to another 
 is mapped to graph edge between vertices representing corresponding cells.  
-Deep first search was chosen as an algorithm that allows to find all reachable vertices in a graph
-from a given start vertex with ability to track path to them.  
+Algorithm computes routes through each 5x5 partial and combines them together
+into one cyclic route through the whole 10x10 chequerboard 
+that is rotated until it match initial figure position.  
+
+The following table shows a chequerboard with selected up-left partial (with dashes) 
+and "in" and "out" cell of each partial path.
+
+
+| - | - | - | - | - | out |   |   |   |   |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| - | - | - | - | - |   |   |   |   |   |
+| - | - | - | in | - |   |   |   |   |   |
+| - | - | - | - | - |   |   | in |   |   |
+| out | - | - | - | - |   |   |   |   |   |
+|   |   |   |   |   |   |   |   |   | out |
+|   |   | in |   |   |   |   |   |   |   |
+|   |   |   |   |   |   | in |   |   |   |
+|   |   |   |   |   |   |   |   |   |   |
+|   |   |   |   | out |   |   |   |   |   |
 
 Prerequisites:  
 sbt installed
