@@ -7,7 +7,7 @@ import route.figure.{Figure, Pawn}
 
 /**
   * Application entry point that accepts program arguments in
-  * "width height initialVerticalPosition initialHorizontalPosition" format,
+  * "initialVerticalPosition initialHorizontalPosition" format,
   * validates them and runs simulation of route search algorithm
   * printing route and chequerboard on each route step.
   */
@@ -17,20 +17,18 @@ object SimulationApp {
 
   def main(args: Array[String]): Unit = {
     validateArgumentsLength(args)
-    val width = validWidth(args(0))
-    val height = validHeight(args(1))
-    simulate(width, height, validInitialPosition(args(2), args(3), width, height))
+    simulate(validInitialPosition(args(0), args(1), 10, 10))
   }
 
-  private def simulate(width: Int, height: Int, initialPosition: (Int, Int)) = {
+  private def simulate(initialPosition: (Int, Int)) = {
     val figure: Figure = Pawn
-    val algorithm: RouteFindingAlgorithm = new RoutesGraph(width, height, figure)
+    val algorithm: RouteFindingAlgorithm = new RoutesGraph(figure)
 
     val route = algorithm.findRoute(initialPosition)
 
     logger.info(s"Route: ${route.mkString(", ")}")
 
-    val matrix: Array[Array[Boolean]] = Array.ofDim[Boolean](width, height)
+    val matrix: Array[Array[Boolean]] = Array.ofDim[Boolean](10, 10)
     for ((cell, index) <- route.view.zipWithIndex) {
       matrix(cell._1)(cell._2) = true
       printMatrix(matrix, index)
@@ -43,25 +41,13 @@ object SimulationApp {
   }
 
   private def validateArgumentsLength(args: Array[String]) = {
-    assert(args.length == 4,
+    assert(args.length == 2,
       s"""Not enough arguments: ${args.length}
          |Please provide arguments in the following format:
-         |width height initialHorizontalPosition initialVerticalPosition
-         |each argument should be an integer greater than 0
-         |and initial position should fit provided width and height
+         |initialHorizontalPosition initialVerticalPosition
+         |initial position should fit [0, 10) range,
+         |0 inclusive, 10 exclusive
          """.stripMargin)
-  }
-
-  private def validWidth(arg: String) = {
-    val width = arg.toInt
-    assert(width > 0, "Width should be greater than 0")
-    width
-  }
-
-  private def validHeight(arg: String) = {
-    val height = arg.toInt
-    assert(height > 0, "Height should be greater than 0")
-    height
   }
 
   private def validInitialPosition(initialVerticalPositionArg: String,
