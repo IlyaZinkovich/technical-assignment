@@ -1,7 +1,7 @@
 package route.figure
 
 /**
-  * A chequerboard figure that can vertically and horizontally through two cells
+  * A chequerboard figure that can move vertically and horizontally through two cells
   * and diagonally through one cell.
   */
 object Pawn extends Figure {
